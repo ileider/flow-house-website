@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flow House</title>
+<meta name="description" content="Flow House — 90s eurodance energy. Crystal grooves and unlimited vibes.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Flow House">
+<meta property="og:description" content="90s eurodance energy. Crystal grooves and unlimited vibes.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="/og-image.png">
+
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --hot-pink: #FF1493;
+    --electric-blue: #00D4FF;
+    --neon-yellow: #FFEE00;
+    --purple: #9B59FF;
+    --black: #0A0A0A;
+    --dark: #111111;
+    --white: #FFFFFF;
+    --gray: #888888;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ── VHS Tracking Lines ── */
+  .vhs-lines {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 9998;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(255, 255, 255, 0.008) 3px,
+      rgba(255, 255, 255, 0.008) 6px
+    );
+  }
+
+  /* ── Neon Glow Scan ── */
+  .neon-scan {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--hot-pink);
+    box-shadow:
+      0 0 10px var(--hot-pink),
+      0 0 40px var(--hot-pink),
+      0 0 100px rgba(255, 20, 147, 0.3);
+    z-index: 9997;
+    pointer-events: none;
+    opacity: 0;
+    animation: neonScan 15s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+
+  @keyframes neonScan {
+    0%   { top: -2px; opacity: 0; }
+    3%   { opacity: 0.5; }
+    18%  { opacity: 0.5; }
+    20%  { top: 100vh; opacity: 0; }
+    100% { top: 100vh; opacity: 0; }
+  }
+
+  /* ── Gradient Accent Bar ── */
+  .top-bar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: linear-gradient(90deg, var(--hot-pink), var(--neon-yellow), var(--electric-blue), var(--purple), var(--hot-pink));
+    background-size: 200% 100%;
+    animation: gradientSlide 4s linear infinite;
+    z-index: 10000;
+  }
+
+  @keyframes gradientSlide {
+    0%   { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+
+  /* ── Hero ── */
+  .hero {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 40px 24px;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 20, 147, 0.06) 0%, rgba(0, 212, 255, 0.03) 40%, transparent 70%);
+    pointer-events: none;
+    animation: pulseGlow 6s ease-in-out infinite;
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50%      { transform: scale(1.15); opacity: 1; }
+  }
+
+  .logo {
+    width: 220px; height: 220px;
+    display: block;
+    margin-bottom: 32px;
+    filter: invert(1);
+    animation: logoPulse 8s ease-in-out infinite;
+  }
+
+  @keyframes logoPulse {
+    0%, 100% {
+      filter: invert(1) drop-shadow(0 0 0 transparent);
+    }
+    25% {
+      filter: invert(1) drop-shadow(0 0 15px rgba(255, 20, 147, 0.4));
+    }
+    50% {
+      filter: invert(1) drop-shadow(0 0 15px rgba(0, 212, 255, 0.4));
+    }
+    75% {
+      filter: invert(1) drop-shadow(0 0 15px rgba(155, 89, 255, 0.4));
+    }
+  }
+
+  .hero-tagline {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, var(--hot-pink), var(--electric-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-align: center;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 36px;
+    background: linear-gradient(to bottom, transparent, var(--hot-pink));
+    animation: scrollPulse 2.5s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.2; transform: scaleY(1); }
+    50%      { opacity: 0.6; transform: scaleY(1.15); }
+  }
+
+  /* ── Content ── */
+  .content {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 24px 100px;
+  }
+
+  .gradient-rule {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--hot-pink), var(--electric-blue), transparent);
+    opacity: 0.4;
+    margin-bottom: 80px;
+  }
+
+  .section {
+    margin-bottom: 80px;
+  }
+
+  .section-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, var(--hot-pink), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(255, 20, 147, 0.3), transparent);
+  }
+
+  .about-text {
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 2;
+    color: #ccc;
+  }
+
+  /* ── Contact Links ── */
+  .contact-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    border-bottom: 1px solid #222;
+    text-decoration: none;
+    color: var(--white);
+    transition: border-color 0.4s ease, padding-left 0.4s ease;
+  }
+
+  .contact-link:first-child {
+    border-top: 1px solid #222;
+  }
+
+  .contact-link:hover {
+    border-bottom-color: var(--hot-pink);
+    padding-left: 12px;
+  }
+
+  .contact-link:hover .contact-value {
+    background: linear-gradient(90deg, var(--hot-pink), var(--electric-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .contact-type {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  .contact-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: 1px;
+    transition: all 0.4s ease;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    padding: 48px 24px;
+    text-align: center;
+  }
+
+  .footer-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    color: #333;
+    letter-spacing: 1px;
+  }
+
+  /* ── Reveal Animations ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 1s ease-out forwards;
+  }
+
+  .r1 { animation-delay: 0.3s; }
+  .r2 { animation-delay: 0.7s; }
+  .r3 { animation-delay: 1.2s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  .scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Responsive ── */
+  @media (min-width: 768px) {
+    .logo { width: 300px; height: 300px; }
+    .hero-tagline { font-size: 13px; letter-spacing: 8px; }
+    .hero::before { width: 700px; height: 700px; }
+    .content { padding: 0 40px 140px; }
+    .gradient-rule { margin-bottom: 100px; }
+    .section { margin-bottom: 100px; }
+    .about-text { font-size: 16px; }
+    .contact-value { font-size: 22px; letter-spacing: 2px; }
+  }
+
+  @media (min-width: 1024px) {
+    .logo { width: 340px; height: 340px; }
+    .hero-tagline { font-size: 14px; letter-spacing: 10px; }
+    .content { max-width: 700px; padding-bottom: 180px; }
+    .gradient-rule { margin-bottom: 120px; }
+    .section { margin-bottom: 120px; }
+    .about-text { font-size: 17px; }
+    .contact-value { font-size: 24px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .vhs-lines, .neon-scan { display: none; }
+    .logo { animation: none; filter: invert(1); }
+    .scroll-line { animation: none; opacity: 0.3; }
+    .reveal { animation: none; opacity: 1; transform: none; }
+    .top-bar { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Atmospheric overlays -->
+<div class="vhs-lines" aria-hidden="true"></div>
+<div class="neon-scan" aria-hidden="true"></div>
+<div class="top-bar" aria-hidden="true"></div>
+
+<!-- Hero -->
+<section class="hero">
+  <img src="assets/logo.svg" alt="Flow House" class="logo reveal r1">
+  <p class="hero-tagline reveal r2">Crystal grooves &amp; unlimited vibes</p>
+  <div class="scroll-indicator reveal r3" aria-hidden="true">
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- Content -->
+<main class="content">
+  <div class="gradient-rule scroll-reveal"></div>
+
+  <div class="section scroll-reveal">
+    <div class="section-label">About</div>
+    <p class="about-text">
+      Born from the neon-lit dancefloors of the 90s. Flow House channels the euphoria of eurodance, the pulse of house, and the raw energy of a generation that lived for the beat. Four-to-the-floor, hands in the air, no apologies.
+    </p>
+  </div>
+
+  <div class="section scroll-reveal">
+    <div class="section-label">Contact</div>
+    <div class="contact-list">
+      <a href="mailto:info@flowhouse.band" class="contact-link">
+        <span class="contact-type">Email</span>
+        <span class="contact-value">info@flowhouse.band</span>
+      </a>
+      <a href="https://instagram.com/flowhouse.band" target="_blank" rel="noopener noreferrer" class="contact-link">
+        <span class="contact-type">Instagram</span>
+        <span class="contact-value">@flowhouse.band</span>
+      </a>
+    </div>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <p class="footer-text">&copy; 2026 Flow House</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
